@@ -23,11 +23,7 @@
     - name: set timezone
       timezone:
         name: America/New_York
-<<<<<<< HEAD
----
-=======
-
->>>>>>> 405f715 (ansible)
+# ------------------------------------------------------------------
 - name: update LB and db server
   hosts: lb, db
   remote_user: ubuntu
@@ -56,7 +52,4 @@
     - name: set timezone
       timezone:
         name: America/New_York
-<<<<<<< HEAD
-
-=======
->>>>>>> 405f715 (ansible)
+...

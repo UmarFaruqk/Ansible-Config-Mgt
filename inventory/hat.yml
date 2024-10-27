@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 172.31.35.170 ansible_ssh_user='ec2-user' 
 172.31.36.35 ansible_ssh_user='ec2-user'
+=======
+[webservers]
+172.31.35.170 ansible_ssh_user='ec2-user' 
+172.31.36.35 ansible_ssh_user='ec2-user'
+>>>>>>> 405f715 (ansible)

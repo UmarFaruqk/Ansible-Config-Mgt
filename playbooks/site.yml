@@ -3,4 +3,8 @@
 - import_playbook: ../static-assignments/common.yml
 #- import_playbook: ../static-assignments/common-del.yml
 - hosts: hat-webservers
+<<<<<<< HEAD
 - import_playbook: ../static-assignments/hat-webservers.yml
+=======
+- import_playbook: ../static-assignments/hat-webservers/hat-webservers.yml
+>>>>>>> 405f715 (ansible)
