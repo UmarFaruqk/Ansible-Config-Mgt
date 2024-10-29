@@ -1,6 +1,19 @@
 ---
-- hosts: all
-- import_playbook: ../static-assignments/common.yml
-#- import_playbook: ../static-assignments/common-del.yml
-- hosts: hat-webservers
+- name: Include dynamic variables
+  hosts: all
+  become: yes
+  tasks:
+    #import_playbook: ../static-assignments/common.yml
+    - include_vars: ../dynamic-assignments/env-vars.yml
+      tags:
+        - always
+
 - import_playbook: ../static-assignments/hat-webservers/hat-webservers.yml
+  tags:
+    - webservers
+
+- import_playbook: ../static-assignments/loadbalancer.yml
+  when: load_balancer_is_required
+    #tags:
+    #- loadbalancer
+
