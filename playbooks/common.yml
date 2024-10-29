@@ -23,7 +23,7 @@
     - name: set timezone
       timezone:
         name: America/New_York
-
+# ------------------------------------------------------------------
 - name: update LB and db server
   hosts: lb, db
   remote_user: ubuntu

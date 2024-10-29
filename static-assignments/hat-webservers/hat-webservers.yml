@@ -1,4 +1,10 @@
 ---
+<<<<<<< HEAD
 - hosts: hat-webservers
   roles:
      - webserver
+=======
+- hosts: webservers
+  roles:
+     - webserver
+>>>>>>> 405f715 (ansible)
