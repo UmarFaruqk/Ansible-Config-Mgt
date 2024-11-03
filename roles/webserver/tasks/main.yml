@@ -16,11 +16,7 @@
 - name: clone a repo
   become: true
   ansible.builtin.git:
-<<<<<<< HEAD
-    repo: https://github.com/UmarFaruqk/DevOps-Tooling-Website-Solution.git
-=======
     repo: https://github.com/UmarFaruqk/tooling.git
->>>>>>> 405f715 (ansible)
     dest: /var/www/html
     force: yes
 
@@ -38,8 +34,4 @@
   become: true
   ansible.builtin.file:
     path: /var/www/html/html
-<<<<<<< HEAD
     state: absent
-=======
-    state: absent
->>>>>>> 405f715 (ansible)
