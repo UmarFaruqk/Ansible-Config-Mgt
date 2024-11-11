@@ -5,5 +5,6 @@
 - import_playbook: ../static-assignments/hat-webservers/hat-webservers.yml
 
 - import_playbook: ../static-assignments/loadbalancer.yml
+- import_playbook: ../static-assignment/db-servers.yml
   when: load_balancer_is_required
 
