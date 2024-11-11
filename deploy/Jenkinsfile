@@ -38,7 +38,7 @@
                        ]
                        for (host in hosts) {
                          sshagent(['private-key']) {
-                           sh "ssh -o StrictHostKeyChecking=no -i /home/ubuntu/.ssh/key.pem ${host.user}@${host.ip} exit"
+                           sh "ssh -o StrictHostKeyChecking=no -i /home/ubuntu/Downloads/web-server2.pem ${host.user}@${host.ip} exit"
                          }
                        }
                      }
