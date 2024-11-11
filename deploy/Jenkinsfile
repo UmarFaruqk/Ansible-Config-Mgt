@@ -17,7 +17,7 @@
 
                  stage('Checkout SCM') {
                    steps {
-                     git branch: 'main', url: 'https://github.com/citadelict/ansibllle-config-mgt.git'
+                     git branch: 'main', url: 'https://github.com/UmarFaruqk/Ansible-Config-Mgt'
                    }
                  }
              
@@ -32,10 +32,9 @@
                    steps {
                      script {
                        def hosts = [
-                         [group: 'tooling', ip: '172.31.30.46', user: 'ec2-user'],
-                         [group: 'tooling', ip: '172.31.25.209', user: 'ec2-user'],
-                         [group: 'nginx', ip: '172.31.26.108', user: 'ubuntu'],
-                         [group: 'db', ip: '172.31.24.250', user: 'ubuntu']
+                         [group: 'tooling', ip: '172.31.35.170', user: 'ec2-user'],
+                         [group: 'tooling', ip: '172.31.36.35', user: 'ec2-user'],
+                         [group: 'db', ip: '172.31.37.230', user: 'ubuntu']
                        ]
                        for (host in hosts) {
                          sshagent(['private-key']) {
@@ -54,7 +53,7 @@
                          credentialsId: 'private-key',
                          disableHostKeyChecking: true,
                          installation: 'ansible',
-                         inventory: "${WORKSPACE}/inventory/dev.yml",
+                         inventory: "${WORKSPACE}/inventory/dev.ini",
                          playbook: "${WORKSPACE}/playbooks/site.yml"
                        )
                      }
