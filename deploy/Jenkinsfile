@@ -48,7 +48,7 @@
              
                  stage('Run Ansible playbook') {
                    steps {
-                     sshagent(['private-key']) {
+                     sshagent(['web-server2.pem, db-server.pem']) {
                        ansiblePlaybook(
                          become: true,
                          credentialsId: 'web-server2.pem, db-server.pem',
