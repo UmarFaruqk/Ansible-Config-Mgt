@@ -38,7 +38,7 @@
                        ]
                        for (host in hosts) {
                          sshagent(['private-key']) {
-                           sh "ssh -o StrictHostKeyChecking=no -i /home/ubuntu/Downloads/key.pem ${host.user}@${host.ip} exit"
+                           sh "ssh -o StrictHostKeyChecking=no -i /home/ubuntu/Downloads/web-ser2.pem, db-server.pem ${host.user}@${host.ip} exit"
 
                          }
                        }
@@ -51,7 +51,7 @@
                      sshagent(['private-key']) {
                        ansiblePlaybook(
                          become: true,
-                         credentialsId: 'private-key',
+                         credentialsId: 'web-server2.pem, db-server.pem',
                          disableHostKeyChecking: true,
                          installation: 'ansible',
                          inventory: "${WORKSPACE}/inventory/dev.ini",
