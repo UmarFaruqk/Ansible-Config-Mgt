@@ -1,5 +1,5 @@
 ---
-- name: Configure web servers
+  name: Configure web servers
   hosts: hat-webservers
   become: yes
   roles:
