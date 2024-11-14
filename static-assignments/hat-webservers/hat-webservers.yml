@@ -3,5 +3,5 @@
   hosts: hat-webservers
   become: yes
   roles:
-    - role: webserver
+     role: webserver
 
