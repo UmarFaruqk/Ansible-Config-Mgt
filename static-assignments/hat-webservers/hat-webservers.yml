@@ -1,5 +1,7 @@
 ---
-- hosts: hat-webservers
+- name: Configure web servers
+  hosts: hat-webservers
+  become: yes
   roles:
-    - webserver
+    - role: webserver
 
