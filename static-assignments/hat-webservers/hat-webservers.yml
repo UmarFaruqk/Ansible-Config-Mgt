@@ -1,4 +1,5 @@
 ---
 - hosts: hat-webservers
   roles:
-     - webserver
+  - webserver
+
