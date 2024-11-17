@@ -13,13 +13,6 @@ pipeline {
                 sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'
             }
         }
- stage('Test SSH Connection') {
-      steps {
-        sshagent(['private-key']) {
-            sh "ssh -o StrictHostKeyChecking=no -A ${host} exit"
-        }
-      }
-    }
         stage("Run Ansible playbook") {
             steps {
                 ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/dev.ini', playbook: 'playbooks/site.yml'
