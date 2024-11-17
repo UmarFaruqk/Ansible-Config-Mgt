@@ -32,10 +32,9 @@
                    steps {
                      script {
                        def hosts = [
-                         [group: 'tooling', ip: '172.31.35.170', user: 'ec2-user'],
-                         [group: 'tooling', ip: '172.31.36.35', user: 'ec2-user'],
-                         [group: 'db', ip: '172.31.37.230', user: 'ubuntu']
-
+                         'ec2-user@172.31.35.170',
+                         'ec2-user@172.31.36.35',
+                         'ubuntu@172.31.37.230'
                        ]
                        for (host in hosts) {
                          sshagent(['Private-Key']) {
