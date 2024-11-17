@@ -1,3 +1,4 @@
+<<<<<<< HEAD
    pipeline {
                agent any
              
@@ -28,10 +29,14 @@
                    }
                  }
              
+=======
+
+>>>>>>> 29e8f0c (All)
                  stage('Test SSH Connections') {
                    steps {
                      script {
                        def hosts = [
+<<<<<<< HEAD
                          'ec2-user@172.31.35.170',
                          'ec2-user@172.31.36.35',
                          'ubuntu@172.31.37.230'
@@ -39,11 +44,22 @@
                        for (host in hosts) {
                          sshagent(['Private-Key']) {
                            sh "ssh -o StrictHostKeyChecking=no -A ${host} exit"
+=======
+                         [group: 'tooling', ip: '172.31.35.170', user: 'ec2-user'],
+                         [group: 'tooling', ip: '172.31.36.35', user: 'ec2-user'],
+                         [group: 'db', ip: '172.31.37.230', user: 'ubuntu']
+                       ]
+                       for (host in hosts) {
+                         sshagent(['private-key']) {
+                           sh "ssh -o StrictHostKeyChecking=no -A ${host.user}@${host.ip} exit"
+
+>>>>>>> 29e8f0c (All)
                          }
                        }
                      }
                    }
                  }
+<<<<<<< HEAD
              
                  stage('Run Ansible playbook') {
                    steps {
@@ -51,6 +67,15 @@
                        ansiblePlaybook(
                          become: true,
                          credentialsId: 'Private-Pey',
+=======
+
+                 stage('Run Ansible playbook') {
+                   steps {
+                     sshagent(['web-server2.pem, db-server.pem']) {
+                       ansiblePlaybook(
+                         become: true,
+                         credentialsId: 'web-server2.pem, db-server.pem',
+>>>>>>> 29e8f0c (All)
                          disableHostKeyChecking: true,
                          installation: 'ansible',
                          inventory: "${WORKSPACE}/inventory/dev.ini",
@@ -59,6 +84,7 @@
                      }
                    }
                  }
+<<<<<<< HEAD
              
                  stage('Clean Workspace after build') {
                    steps {
@@ -67,3 +93,7 @@
                  }
                }
              }
+=======
+
+
+>>>>>>> 29e8f0c (All)
