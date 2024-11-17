@@ -1,27 +1,34 @@
-pipeline {
-    agent any
-	environment {ANSIBLE_CONFIG = "${WORKSPACE}/deploy/ansible.cfg" }
-    stages {
-        stage("Checkout SCM") {
-            steps {
-                git branch: 'main', url: 'https://github.com/UmarFaruqk/Ansible-Config-Mgt'
-            }
-        }
-        stage("Prepare Ansible For Execution") {
-            steps {
-                sh 'echo ${WORKSPACE}'
-                sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'
-            }
-        }
-        stage("Run Ansible playbook") {
-            steps {
-                ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/dev.ini', playbook: 'playbooks/site.yml'
-            }
-        }
-        stage("Clean Workspace after build") {
-            steps {
-                cleanWs()
-            }
-        }
-    }
-}
+ 
+                 stage('Test SSH Connections') {
+                   steps {
+                     script {
+                       def hosts = [
+                         [group: 'tooling', ip: '172.31.35.170', user: 'ec2-user'],
+                         [group: 'tooling', ip: '172.31.36.35', user: 'ec2-user'],
+                         [group: 'db', ip: '172.31.37.230', user: 'ubuntu']
+                       ]
+                       for (host in hosts) {
+                         sshagent(['private-key']) {
+                           sh "ssh -o StrictHostKeyChecking=no -A ${host.user}@${host.ip} exit"
+
+                         }
+                       }
+                     }
+                   }
+                 }
+
+                 stage('Run Ansible playbook') {
+                   steps {
+                     sshagent(['web-server2.pem, db-server.pem']) {
+                       ansiblePlaybook(
+                         become: true,
+                         credentialsId: 'web-server2.pem, db-server.pem',
+                         disableHostKeyChecking: true,
+                         installation: 'ansible',
+                         inventory: "${WORKSPACE}/inventory/dev.ini",
+                         playbook: "${WORKSPACE}/playbooks/site.yml"
+                       )
+                     }
+                   }
+                 }
+
