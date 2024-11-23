@@ -36,20 +36,20 @@
       }
     }
 
-    stage('Run Ansible playbook') {
-      steps {
-        sshagent(['private-key']) {
-          ansiblePlaybook(
-            become: true,
-            credentialsId: 'private-key',
-            disableHostKeyChecking: true,
-            installation: 'ansible',
-            inventory: "${WORKSPACE}/inventory/dev.ini",
-            playbook: "${WORKSPACE}/playbooks/site.yml"
-          )
+   stage('Run Ansible playbook') {
+            steps {
+                sshagent(['private-key']) {
+                    ansiblePlaybook(
+                        become: true,
+                        credentialsId: 'private-key',
+                        disableHostKeyChecking: true,
+                        installation: 'ansible',
+                        inventory: '${WORKSPACE}/inventory/dev.ini',
+                        playbook: '${WORKSPACE}/playbooks/site.yml'
+                    )
+                }
+            }
         }
-      }
-    }
 
     stage('Clean Workspace after build') {
       steps {
