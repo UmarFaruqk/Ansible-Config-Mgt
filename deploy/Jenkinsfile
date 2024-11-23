@@ -31,7 +31,7 @@
     stage('Test SSH Connection') {
       steps {
         sshagent(['private-key']) {
-          sh 'ssh -o StrictHostKeyChecking=no -i /home/ubuntu/.ssh/server-key.pem ubuntu@172.31.42.220 exit'
+          sh 'ssh -o StrictHostKeyChecking=no -i /home/Downloads/server-key.pem ubuntu@172.31.42.220 exit'
         }
       }
     }
