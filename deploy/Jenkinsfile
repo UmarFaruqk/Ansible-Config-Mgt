@@ -6,6 +6,13 @@
     ANSIBLE_HOST_KEY_CHECKING = 'False'
   }
 
+pipeline {
+    agent any
+
+    parameters {
+      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
+    }
+
   stages {
     stage("Initial cleanup") {
       steps {
@@ -31,7 +38,7 @@
     stage('Test SSH Connection') {
       steps {
         sshagent(['private-key']) {
-          sh 'ssh -o StrictHostKeyChecking=no -i /home/Downloads/server-key.pem ubuntu@172.31.42.220 exit'
+           sh 'ssh -o StrictHostKeyChecking=no -i /Users/umara/Downloads/server-key.pem ubuntu@172.31.42.220, ubuntu@172.31.42.119 exit'
         }
       }
     }
