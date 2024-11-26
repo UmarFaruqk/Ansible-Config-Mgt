@@ -7,11 +7,8 @@
   }
 
     parameters {
-      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
-      
-    }
-   parameters { 
-       string(name: 'ansible_tags', defaultValue: 'webserver', description: 'Tags for the Ansible playbook') 
+      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration') 
+      string(name: 'ansible_tags', defaultValue: 'webserver', description: 'Tags for the Ansible playbook') 
    }
   stages {
     stage("Initial cleanup") {
