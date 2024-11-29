@@ -1,2 +1,14 @@
 ---
 # tasks file for roles/artifactory
+- name: Perform installation
+  ansible.builtin.include_tasks: "install.yml"
+  when:
+    - artifactory_enabled
+    - not artifactory_upgrade_only
+
+
+- name: Perform upgrade
+  ansible.builtin.inlcude_include_tasks: "upgrade.yml"
+  when:
+     - artifactory_enabled
+     - not artifactory_upgrade_only
