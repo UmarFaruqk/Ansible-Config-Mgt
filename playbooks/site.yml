@@ -7,5 +7,7 @@
 
 - import_playbook: ../static-assignments/loadbalancer.yml
   when: load_balancer_is_required
-
+- import_playbook: ../static-assignments/artifactory.yml
+  tags:
+    - artifactory
 
