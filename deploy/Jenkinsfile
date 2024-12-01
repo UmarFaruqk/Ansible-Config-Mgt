@@ -1,66 +1,30 @@
-  pipeline {
-  agent any
+pipeline {
+    agent any
 
-  environment {
-    ANSIBLE_CONFIG="${WORKSPACE}/deploy/ansible.cfg"
-    ANSIBLE_HOST_KEY_CHECKING = 'False'
-  }
-
-    parameters {
-      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration') 
-      string(name: 'ansible_tags', defaultValue: 'webserver', description: 'Tags for the Ansible playbook') 
-   }
   stages {
-    stage("Initial cleanup") {
-      steps {
-        dir("${WORKSPACE}") {
-          deleteDir()
+
+     stage("Initial cleanup") {
+          steps {
+            dir("${WORKSPACE}") {
+              deleteDir()
+            }
+          }
         }
-      }
-    }
 
     stage('Checkout SCM') {
       steps {
-        git branch: 'main', url: 'https://github.com/UmarFaruqk/Ansible-Config-Mgt.git'
+            git branch: 'main', url: 'https://github.com/UmarFaruqk/php-todo'
       }
     }
 
-    stage('Prepare Ansible For Execution') {
+    stage('Prepare Dependencies') {
       steps {
-        sh 'echo ${WORKSPACE}'
-        sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'
-      }
-    }
-
-    stage('Test SSH Connection') {
-      steps {
-        sshagent(['private-key']) {
-           sh 'ssh -o StrictHostKeyChecking=no -i /Users/umara/Downloads/server-key.pem  ubuntu@172.31.42.119'
-             sh 'ssh -o StrictHostKeyChecking=no -i /Users/umara/Downloads/server-key.pem ubuntu@172.31.42.220 exit'
-        }
-      }
-    }
-
-   stage('Run Ansible playbook') {
-            steps {
-                sshagent(['private-key']) {
-                    ansiblePlaybook(
-                        become: true,
-                        credentialsId: 'private-key',
-                        disableHostKeyChecking: true,
-                        installation: 'ansible',
-                        inventory: '${WORKSPACE}/inventory/${inventory}',
-                        playbook: '${WORKSPACE}/playbooks/site.yml'
-                    )
-                }
-            }
-        }
-
-    stage('Clean Workspace after build') {
-      steps {
-        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
+             sh 'mv .env.sample .env'
+             sh 'composer install'
+             sh 'php artisan migrate'
+             sh 'php artisan db:seed'
+             sh 'php artisan key:generate'
       }
     }
   }
 }
-
