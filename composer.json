@@ -1,0 +1,6 @@
+{
+    "require": {
+        "doctrine/instantiator": "^1.4",
+        "phpspec/prophecy": "^1.11"
+    }
+}
