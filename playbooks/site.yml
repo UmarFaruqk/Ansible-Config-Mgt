@@ -10,4 +10,4 @@
 - import_playbook: ../static-assignments/artifactory.yml
   tags:
     - artifactory
-
+- import_playbook: ../bootstrap/cache/services.php
